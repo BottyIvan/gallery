@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/ivanbotty/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex dex="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/pre-dexed/debug/gson-2.3-e58d2ff48318583c657445a231f9eaad8d08ad47.jar" />
+    </item>
+    <item
+        jar="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="95fd37732ec852e99f07eeb516a3650172f1d136">
+        <dex dex="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/pre-dexed/debug/classes-849e52db12cbd52c68b6ef5851a6911cba2f0602.jar" />
+    </item>
+    <item
+        jar="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/pre-dexed/debug/classes-321da8db3e020acae76b0f2b34e34d31706589f3.jar" />
+    </item>
+    <item
+        jar="/home/ivanbotty/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.0-370c6cce067f77763869737f6ece2c29217ec466.jar" />
+    </item>
+    <item
+        jar="/home/ivanbotty/.gradle/caches/modules-2/files-2.1/com.koushikdutta.async/androidasync/2.0.2/26b4453f50ad599a758ef3f8e19d1ec6a19f533e/androidasync-2.0.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="26b4453f50ad599a758ef3f8e19d1ec6a19f533e">
+        <dex dex="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/pre-dexed/debug/androidasync-2.0.2-30f164c3c65ee2740ee5a50e368f36a406efbc23.jar" />
+    </item>
+    <item
+        jar="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/libs/internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.0-49e54288f7c72f7010d661d05e57a40e6f34151b.jar" />
+    </item>
+    <item
+        jar="/home/ivanbotty/.gradle/caches/modules-2/files-2.1/com.koushikdutta.ion/ion/2.0.2/5c006951f0969f6a5b118cc298b0c5d68abd4c90/ion-2.0.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="5c006951f0969f6a5b118cc298b0c5d68abd4c90">
+        <dex dex="/home/ivanbotty/AndroidStudioProjects/gallery/app/build/intermediates/pre-dexed/debug/ion-2.0.2-902a369d555f4c3be25cf62f37ca92f3d5ecd0a9.jar" />
+    </item>
+
+</items>
