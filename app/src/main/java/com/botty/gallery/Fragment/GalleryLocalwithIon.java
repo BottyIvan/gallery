@@ -27,16 +27,19 @@ import java.io.File;
  */
 public class GalleryLocalwithIon extends Fragment {
 
+    public static String _ID_KEY = "_id";
+
     public GalleryLocalwithIon() {
 
     }
 
-    private MyAdapter mAdapter;
+    public MyAdapter mAdapter;
     // Adapter to populate and imageview from an url contained in the array adapter
     private class MyAdapter extends ArrayAdapter<String> {
         public MyAdapter(Context context) {
             super(context, 0);
         }
+
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
         // see if we need to load more to get 40, otherwise populate the adapter
@@ -55,8 +58,10 @@ public class GalleryLocalwithIon extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getActivity(),getItem(position),Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getActivity(), FullPhotoView.class);
-                    Log.i("positionFrag", getItem(position));
+                    Intent i = new Intent(getActivity(),FullPhotoView.class);
+                    i.putExtra(_ID_KEY,
+                            mAdapter.getItemId(position));
+                    Log.i("position",mAdapter.getItem(position));
                     startActivity(i);
                 }
             });
@@ -78,10 +83,8 @@ public class GalleryLocalwithIon extends Fragment {
         mAdapter = new MyAdapter(getActivity());
         gridView.setAdapter(mAdapter);
         loadMore();
-
         return view;
     }
-
     Cursor mediaCursor;
     public void loadMore() {
         if (mediaCursor == null) {
