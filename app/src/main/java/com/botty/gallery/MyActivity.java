@@ -18,7 +18,9 @@ import android.widget.ListView;
 
 import com.botty.gallery.Adapters.items.DrawerItem;
 import com.botty.gallery.Adapters.CustomDrawerAdapter;
+import com.botty.gallery.Fragment.About;
 import com.botty.gallery.Fragment.GalleryLocalwithIon;
+import com.botty.gallery.Fragment.VideoLocal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +64,10 @@ public class MyActivity  extends ActionBarActivity {
                 GravityCompat.START);
 
         // Add Drawer Item to dataList
-        dataList.add(new DrawerItem("GalleryLocal", R.drawable.ic_launcher));
+        dataList.add(new DrawerItem("Photo", R.drawable.ic_photo_drawer));
+        dataList.add(new DrawerItem("Video", R.drawable.ic_movie_drawer));
+        dataList.add(new DrawerItem("About", R.drawable.ic_info_drawer));
+
 
         adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item,
                 dataList);
@@ -98,6 +103,12 @@ public class MyActivity  extends ActionBarActivity {
         switch (possition) {
             case 0:
                 fragment = new GalleryLocalwithIon();
+                break;
+            case 1:
+                fragment = new VideoLocal();
+                break;
+            case 2:
+                fragment = new About();
                 break;
             default:
                 return;

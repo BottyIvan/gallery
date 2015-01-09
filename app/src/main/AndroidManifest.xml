@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress ALL -->
+<!-- suppress ALL -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.botty.gallery" >
 
@@ -22,6 +22,14 @@
         <activity
             android:name=".Activity.FullPhotoView"
             android:label="title_activity_full_photo_view"
+            android:parentActivityName=".MyActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.botty.gallery.MyActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.FullVideoView"
+            android:label="@string/title_activity_full_video_view"
             android:parentActivityName=".MyActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

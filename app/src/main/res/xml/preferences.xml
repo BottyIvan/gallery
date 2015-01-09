@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="About">
+        <PreferenceScreen
+            android:title="0.0.1 "/>
+        <PreferenceScreen
+            android:title="Gallery on GitHub"
+            android:summary="Look at the code and improve.">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/BottyIvan/gallery"/>
+        </PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

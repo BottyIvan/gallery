@@ -27,7 +27,7 @@ import java.io.File;
  */
 public class GalleryLocalwithIon extends Fragment {
 
-    public static String _ID_KEY = "_id";
+    public String filePath;
 
     public GalleryLocalwithIon() {
 
@@ -57,11 +57,10 @@ public class GalleryLocalwithIon extends Fragment {
             iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),getItem(position),Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getActivity(),FullPhotoView.class);
-                    i.putExtra(_ID_KEY,
-                            mAdapter.getItemId(position));
-                    Log.i("position",mAdapter.getItem(position));
+                    filePath = mAdapter.getItem(position);
+                    i.putExtra("data",filePath);
+                    Log.i("position",filePath);
                     startActivity(i);
                 }
             });
@@ -94,8 +93,7 @@ public class GalleryLocalwithIon extends Fragment {
         while (mediaCursor.moveToNext() && loaded < 10) {
         // get the media type. ion can show images for both regular images AND video.
             int mediaType = mediaCursor.getInt(mediaCursor.getColumnIndex(MediaStore.Files.FileColumns.MEDIA_TYPE));
-            if (mediaType != MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
-                    && mediaType != MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO) {
+            if (mediaType != MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE) {
                 continue;
             }
             loaded++;

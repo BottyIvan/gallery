@@ -7,4 +7,8 @@
         <item name="colorAccent">@color/material_deep_teal_200</item>
         <item name="windowActionBar">false</item>
     </style>
+
+    <style name="VideoControlCard">
+        <item name="android:background">@drawable/card</item>
+    </style>
 </resources>
