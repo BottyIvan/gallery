@@ -1,49 +1,43 @@
 package com.botty.gallery.Activity;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.MediaController;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.VideoView;
 
 import com.botty.gallery.R;
-import com.koushikdutta.ion.Ion;
-
-import org.w3c.dom.Text;
-
-import java.io.File;
-
-import uk.co.senab.photoview.PhotoViewAttacher;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 public class FullVideoView extends ActionBarActivity {
 
+    private final String TAG = "main";
     public String filepath;
     public String file_name;
+    private int position = 0;
+    boolean on;
+    private boolean isPlaying;
+    int msec;
+
     VideoView videoView;
     ToggleButton mPlayVideo;
-    TextView mVideoTime;
-    ProgressBar mVideoProgress;
+    MediaController.MediaPlayerControl videoControl;
+    TextView mVideoTime,mCurrentVideoTime;
+    SeekBar mVideoSeek;
     FrameLayout mVideoControl;
     View decorView;
-    boolean on;
 
-    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,44 +54,94 @@ public class FullVideoView extends ActionBarActivity {
         toolbar.setVisibility(View.GONE);
 
         filepath = this.getIntent().getStringExtra("data");
-        videoView  = (VideoView)findViewById(R.id.video_full);
-        mPlayVideo = (ToggleButton)findViewById(R.id.play_pause);
-        mVideoTime = (TextView)findViewById(R.id.text_time_video);
-        mVideoProgress = (ProgressBar) findViewById(R.id.video_progress);
+        videoView = (VideoView) findViewById(R.id.video_full);
+        mPlayVideo = (ToggleButton) findViewById(R.id.play_pause);
+        mVideoTime = (TextView) findViewById(R.id.text_time_video);
+        mVideoSeek = (SeekBar) findViewById(R.id.seek_video_bar);
+        mCurrentVideoTime = (TextView) findViewById(R.id.time_progress);
         mVideoControl = (FrameLayout) findViewById(R.id.video_control);
 
-        toolbar.setTitle(filepath);
-
-
         mVideoControl.setVisibility(View.GONE);
-        mVideoProgress.setProgress(0);
-        mVideoProgress.setMax(100);
 
 
-        if ( videoView != null)
-        {   videoView.setVideoURI(Uri.parse(filepath));
-            videoView.requestFocus();
-            new myAsync().execute();
+        if (videoView != null) {
+            videoView.setVideoURI(Uri.parse(filepath));
+            Log.i(TAG, "Start playing");
             videoView.start();
-        } else
-        { //toast or print "mVideoView is null"
+            // Play according to the initial position
+            videoView.seekTo(msec);
+            // Maximum play time length setting maximum progress bar for streaming video
+            mVideoSeek.setMax(videoView.getDuration());
+            // To update the progress bar thread, scale
+            new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            isPlaying = true;
+                            int position = videoView.getCurrentPosition();
+                            int duration = videoView.getDuration();
+                            if (isPlaying != false) {
+                                if (duration > 0) {
+                                    // use long to avoid overflow
+                                    long pos = 1000L * position / duration;
+                                    mVideoSeek.setProgress((int) pos);
+                                }
+                                int percent = videoControl.getBufferPercentage();
+                                mVideoSeek.setSecondaryProgress(percent * 10);
+                            }
+
+                            if (mVideoTime != null)
+                                mVideoTime.setText(stringForTime(duration));
+
+                            if (mCurrentVideoTime != null)
+                                mCurrentVideoTime.setText(stringForTime(position));
+                            } catch (Exception e) {
+                                      e.printStackTrace();
+                        }
+                    }
+            }.start();
+
+            videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                // Error resume play
+                isPlaying = false;
+                return false;
+                   }
+            });
         }
 
-        videoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mVideoControl.setVisibility(View.VISIBLE);
-            }
-        });
+
 
         mPlayVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 on = ((ToggleButton) v).isChecked();
-                if(on) {
+                if (on) {
                     videoView.pause();
-                }else {
+                } else {
                     videoView.start();
+                }
+            }
+        });
+
+
+        mVideoSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int progress = seekBar.getProgress();
+                if (videoView != null && videoView.isPlaying()) {
+                    videoView.seekTo(progress);
                 }
             }
         });
@@ -110,14 +154,18 @@ public class FullVideoView extends ActionBarActivity {
                         // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
                         if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
                             mVideoControl.setVisibility(View.VISIBLE);
+                            YoYo.with(Techniques.FadeInUp).playOn(mVideoControl);
                             toolbar.setVisibility(View.VISIBLE);
-                        }else {
+                        }
+                        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 1) {
                             mVideoControl.setVisibility(View.GONE);
+                            YoYo.with(Techniques.Wobble).playOn(mVideoControl);
+                            toolbar.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
-    }
 
+    }
     // This snippet hides the system bars.
     private void hideSystemUI() {
         // Set the IMMERSIVE flag.
@@ -137,64 +185,40 @@ public class FullVideoView extends ActionBarActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-    private class myAsync extends AsyncTask<Void, Integer, Void>
-    {
-        int duration = 0;
-        int current = 0;
-        @Override
-        protected Void doInBackground(Void... params) {
+    private String stringForTime(int timeMs) {
+        int totalSeconds = timeMs / 1000;
 
-            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        int seconds = totalSeconds % 60;
+        int minutes = (totalSeconds / 60) % 60;
+        int hours   = totalSeconds / 3600;
 
-                public void onPrepared(MediaPlayer mp) {
-                    duration = videoView.getDuration();
-                }
-            });
-
-            do {
-                current = videoView.getCurrentPosition();
-               /* System.out.println("duration - " + duration + " current- "
-                        + current);*/
-                try {
-                    publishProgress((int) (current * 100 / duration));
-                    if(mVideoProgress.getProgress() >= 100){
-                        videoView.stopPlayback();
-                        break;
-                    }
-                } catch (Exception e) {
-                }
-            } while (mVideoProgress.getProgress() <= 100);
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            //System.out.println(values[0]);
-            mVideoProgress.setProgress(values[0]);
+        if (hours > 0) {
+            return String.format("%d:%02d:%02d", hours, minutes, seconds);
+        } else {
+            return String.format("%02d:%02d", minutes, seconds);
         }
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-        }
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        //we use onSaveInstanceState in order to store the video playback position for orientation change
+        savedInstanceState.putInt("Position", videoView.getCurrentPosition());
+        videoView.pause();
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        //we use onRestoreInstanceState in order to play the video playback from the stored position
+        position = savedInstanceState.getInt("Position");
+        videoView.seekTo(position);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
+        getMenuInflater().inflate(R.menu.menu_full_video_view, menu);
         return true;
     }
 

@@ -4,12 +4,13 @@
     package="com.botty.gallery" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Botty.All.App" >
         <activity
             android:name=".MyActivity"
             android:label="@string/app_name" >
@@ -22,7 +23,8 @@
         <activity
             android:name=".Activity.FullPhotoView"
             android:label="title_activity_full_photo_view"
-            android:parentActivityName=".MyActivity" >
+            android:parentActivityName=".MyActivity"
+            android:theme="@style/Botty.Photo.App">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.botty.gallery.MyActivity" />
@@ -30,7 +32,9 @@
         <activity
             android:name=".Activity.FullVideoView"
             android:label="@string/title_activity_full_video_view"
-            android:parentActivityName=".MyActivity" >
+            android:parentActivityName=".MyActivity"
+            android:configChanges="orientation"
+            android:theme="@style/Botty.Video.App">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.botty.gallery.MyActivity" />

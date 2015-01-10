@@ -13,24 +13,10 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_height="120dp"
         android:id="@+id/video_control"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_margin="15dp">
-
-        <ToggleButton
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/play_pause"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal|bottom"
-            android:textOff=""
-            android:textOn=""
-            android:background="@drawable/style_play_pause_toggle"
-            android:layout_marginBottom="25dp" />
 
         <FrameLayout
             android:orientation="horizontal"
@@ -40,17 +26,25 @@
             android:padding="10dp"
             style="@style/VideoControlCard">
 
-            <ProgressBar
-                style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            <SeekBar
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/video_progress"
-                android:layout_gravity="bottom|right"
-                android:paddingRight="25dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
+                android:id="@+id/seek_video_bar"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="00:00"
+                android:id="@+id/time_progress"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="left|center_vertical"
+                android:layout_margin="10dp"
+                android:textColor="#555" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,11 +54,23 @@
                 android:id="@+id/text_time_video"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="bottom|right"
+                android:layout_gravity="right|center_vertical"
                 android:layout_margin="10dp"
                 android:textColor="#555" />
 
         </FrameLayout>
+
+        <ToggleButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/play_pause"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal|top"
+            android:textOff=""
+            android:textOn=""
+            android:background="@drawable/style_play_pause_toggle" />
 
     </FrameLayout>
 

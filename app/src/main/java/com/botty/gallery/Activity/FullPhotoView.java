@@ -1,22 +1,32 @@
 package com.botty.gallery.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
 
 import com.botty.gallery.R;
 import com.koushikdutta.ion.Ion;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -85,12 +95,21 @@ public class FullPhotoView extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_delete) {
+            File file = new File(filepath);
+            boolean deleted = file.delete();
+            if (deleted==true)
+            Toast.makeText(getApplicationContext(),"deleted",Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_info) {
             return true;
         }
+        if (id == R.id.action_share){
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

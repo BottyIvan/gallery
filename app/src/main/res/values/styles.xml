@@ -1,14 +1,32 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="Botty.All.App" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/material_deep_teal_400</item>
-        <item name="colorPrimaryDark">@color/material_deep_teal_500</item>
-        <item name="colorAccent">@color/material_deep_teal_200</item>
+        <item name="colorPrimary">@color/material_blue_gray_500</item>
+        <item name="colorPrimaryDark">@color/material_blue_gray_700</item>
+        <item name="colorAccent">@color/material_blue_gray_200</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="Botty.Video.App" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/material_red_500</item>
+        <item name="colorPrimaryDark">@color/material_red_700</item>
+        <item name="colorAccent">@color/material_red_200</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="Botty.Photo.App" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/material_cyan_500</item>
+        <item name="colorPrimaryDark">@color/material_cyan_700</item>
+        <item name="colorAccent">@color/material_cyan_200</item>
         <item name="windowActionBar">false</item>
     </style>
 
     <style name="VideoControlCard">
         <item name="android:background">@drawable/card</item>
     </style>
+
+
 </resources>
